@@ -68,6 +68,7 @@ pre {
   overflow-x: auto;
 }
 
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
 th, td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
 th { background: var(--code-bg); font-weight: 600; }
