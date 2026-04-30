@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Vocurso</title>
+  <meta name="description" content="Vocurso (Sloth Lab) Privacy Policy: what we collect, how we use it, and your rights." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">Vocurso</a>
+    <nav class="nav-links" style="margin-top: 0.5rem;">
+      <a href="privacy.html" class="active">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+  </header>
+  <main id="content"></main>
+  <footer>
+    <p>&copy; Sloth Lab. Last updated: 2026-04-21. <a href="index.html">Back to legal index</a>.</p>
+  </footer>
+
+  <script type="text/markdown" id="md">
+# Privacy Policy
+
+**Version**: 2.0
+**Last updated**: 2026-04-21
+**Effective date**: TBD (upon publication)
+**Entity**: Sloth Lab (hoonblizz@gmail.com)
+
+---
+
+## 1. Scope
+
+This Privacy Policy describes how **Sloth Lab Career** (the "**App**"),
+operated by Sloth Lab ("we", "us", "our"), collects, uses, and protects
+information when you use the mobile application.
+
+It applies to the App, related web pages, and any Supabase-hosted services we
+operate to power the App's features. It does **not** apply to third-party
+services linked from the App (e.g. App Store, Play Store).
+
+## 2. Who We Are (Contact)
+
+- Operator: Sloth Lab (individual developer)
+- Contact: hoonblizz@gmail.com
+- Data Protection contact: same as above (no dedicated DPO while the team is
+  below the GDPR Art. 37(1) threshold). If you are an EU data subject and
+  require a formal DPO, contact us and we will appoint external counsel.
+
+## 3. Information We Collect
+
+### 3.1 Account Information
+- Email address (via Supabase Auth magic link or Google Sign-In)
+- Display name (optional)
+- Preferred language (auto-detected, user-overridable)
+
+### 3.2 Career Context (only if you provide it)
+- Career goals (job title, industry, target company, experience level,
+  target interview date)
+- Uploaded résumés (PDF / DOCX / image) and the text extracted from them
+- Free-text answers from the career questionnaire
+- Interview answers (both the recorded audio and its transcription)
+
+### 3.3 Usage Data
+- **Product analytics events** stored in the analytics_events table. No raw
+  user input (résumé text, answer text, transcription, email) is ever stored
+  in event properties — only enumerated labels, anonymous ids, and numeric
+  metrics.
+- **App errors**: crash + exception reports with the error type, a short
+  message, and a 5-line stack-trace preview. Intentionally no user input is
+  attached.
+- Platform identifier (iOS / Android) and app version.
+
+### 3.4 Subscription Data
+- RevenueCat subscriber id, subscription tier, renewal/cancellation dates.
+- Purchase receipts are managed by Apple / Google; we don't see card data.
+
+### 3.5 What We **Do Not** Collect
+- Precise location (GPS)
+- Contacts
+- Browsing history outside the App
+- Biometric identifiers
+- Government ID numbers (Social Security, 주민등록번호) — if present in an
+  uploaded résumé, the PII masking pipeline removes it before the text is
+  sent to the AI provider.
+
+## 4. How We Use Information
+
+| Purpose | Data used | Legal basis (GDPR) |
+|---------|-----------|-------------------|
+| Provide the career diagnosis + interview features | Career context, usage data | Performance of contract (Art. 6(1)(b)) |
+| Personalise AI feedback | Career context + session history | Performance of contract |
+| Send account-related emails (magic link, billing) | Email | Performance of contract |
+| Prevent fraud + enforce subscription limits | Usage data, subscription data | Legitimate interest (Art. 6(1)(f)) |
+| Improve the App (aggregate analytics) | Usage data (no PII) | Legitimate interest |
+| Comply with law | Any | Legal obligation (Art. 6(1)(c)) |
+
+### 4.1 No AI Training
+**We do not use your data to train AI models.** Your résumé, answers,
+diagnoses, and any other user-generated content are processed by Google's
+Gemini API solely to return your specific result and are **not added to any
+training corpus** (ours or Google's, under the terms of the Gemini API).
+
+This guarantee is surfaced in-app (onboarding screen + résumé upload screen).
+
+## 5. Sharing With Third Parties
+
+We use the following sub-processors:
+
+| Processor | Purpose | Data shared |
+|-----------|---------|-------------|
+| Supabase (Singapore + US) | Auth, Postgres DB, Storage | All data above |
+| Google Gemini API | AI inference | Career context + questions (after PII masking) |
+| RevenueCat | Subscription lifecycle | Subscriber id + tier |
+| AWS (us-east-1) | Backend API hosting (Node.js on ECS Fargate) | Career context passed through to Gemini |
+| Google Sign-In | Auth (optional) | Email + basic profile |
+
+We do not sell your personal information.
+
+## 6. International Transfers
+
+Data may be processed in the US (Supabase, AWS, Gemini API) and Singapore
+(Supabase replicas). Transfers out of the EU rely on the Standard Contractual
+Clauses published by the EU Commission.
+
+## 7. Data Retention
+
+| Category | Retention | Notes |
+|----------|-----------|-------|
+| Account | Until you delete it | See §9 |
+| Interview audio | **60 days**, then auto-deleted | |
+| Interview transcript | Until you delete the session | Lives in Supabase DB only |
+| Résumés | Until you delete them | You can remove individual résumés |
+| Analytics events | 24 months from creation | Aggregates retained beyond that |
+| Subscription records | 7 years | Required for tax/accounting |
+
+## 8. Security
+
+- RLS (Row Level Security) on every Supabase table + Storage bucket
+- RLS path prefix = your user id (files in `auth-audio/<user_id>/…`)
+- HTTPS for all traffic
+- No passwords stored (magic link + Google Sign-In only)
+- PII masking before any third-party AI call
+
+## 9. Your Rights
+
+You have the following rights over your data:
+
+- **Access**: request a copy of everything we hold about you (ZIP export,
+  delivered within 30 days to your account email).
+- **Rectification**: edit your profile, goals, and résumés in-app at any
+  time. For things you can't self-edit, email us.
+- **Erasure**: delete your account + all data from in-app settings
+  (14-day grace period, after which every table + Storage path tied to your
+  user id is purged).
+- **Portability**: the export is a standard JSON + original files ZIP you
+  can take elsewhere.
+- **Object / restrict processing**: email us.
+- **Automated decision-making**: the AI diagnosis is a recommendation, not a
+  decision with legal or similarly significant effects. You can always
+  request human review by emailing us.
+
+### California (CCPA) Additions
+- **Do not sell / share**: we do not sell or share your information. The
+  App includes a "Do Not Sell My Data" toggle as a belt-and-braces measure.
+- **Right to know / delete / correct**: same as §9 above.
+
+### Korea (개인정보보호법) Additions
+- 개인정보 처리 목적, 항목, 보유 기간은 §3–§7 참조.
+- 민감정보(주민등록번호 등)는 수집하지 않으며, 이력서에 포함된 경우 PII 마스킹
+  후 AI에 전달됩니다.
+- 개인정보 처리 위탁 현황은 §5를 참조하세요.
+- 정보주체의 권리(§9)는 앱 내 설정 또는 hoonblizz@gmail.com으로 요청하세요.
+
+## 10. Children
+
+The App is not directed to children under 16. We do not knowingly collect
+data from children under 16. If you believe we have, contact us and we will
+delete the account.
+
+## 11. Changes
+
+We will notify you of material changes in-app and by email at least 30 days
+before they take effect. Non-material changes (typo fixes, new sub-processor
+in the same category) will be published silently with an updated version
+number in this document.
+
+## 12. Complaints
+
+If you believe we're mishandling your data, you can:
+
+- email hoonblizz@gmail.com (we aim to respond within 7 days)
+- contact your local supervisory authority (for EU residents: the DPA in your
+  member state; for California: the California Privacy Protection Agency;
+  for Korea: 개인정보보호위원회, https://www.pipc.go.kr/)
+
+---
+
+## 한국어 핵심 요약 (비공식)
+
+- **수집 정보**: 이메일, 선택 제공 이력서/면접 답변/음성, 사용 이벤트, 에러 로그
+- **사용 목적**: 서비스 제공, AI 피드백 개인화, 결제 관리
+- **AI 학습 미사용**: 귀하의 데이터는 AI 모델 학습에 절대 사용되지 않음
+- **제3자 제공**: Supabase, Gemini, RevenueCat, AWS, Google Sign-In (처리 위탁)
+- **판매/공유 안 함**
+- **보유 기간**: 계정 삭제까지 / 음성 60일 / 분석 이벤트 24개월
+- **권리**: 열람·정정·삭제·이동·이의제기 (앱 내 설정 또는 이메일)
+- **문의**: hoonblizz@gmail.com
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script>
+    const md = document.getElementById('md').textContent;
+    document.getElementById('content').innerHTML = marked.parse(md);
+  </script>
+</body>
+</html>
